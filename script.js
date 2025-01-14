@@ -19,7 +19,7 @@ function secondsToMinutesSeconds(seconds) {
 async function getSongs(folder){
     console.log("getsongs")
     currFolder=folder;
-    let a= await fetch(`/spotify_clone/songs/${folder}`)
+    let a= await fetch(`songs/${folder}`)
     let response=await a.text();
     console.log(response);
     let div=document.createElement("div")
@@ -30,7 +30,7 @@ async function getSongs(folder){
     for(let index=0;index<as.length;index++){
         const element=as[index];
         if(element.href.endsWith(".mp3")){
-            songs.push(element.href.split(`/spotify_clone/songs/${folder}`)[1])
+            songs.push(element.href.split(`songs/${folder}`)[1])
             
         }
     }
@@ -78,7 +78,7 @@ const playMusic = (track,pause=false) => {
     
     
     
-    currentSong.src = `/spotify_clone/songs/${currFolder}`+ track
+    currentSong.src = `songs/${currFolder}`+ track
     
     if(!pause){
         currentSong.play();
@@ -92,7 +92,7 @@ const playMusic = (track,pause=false) => {
 
 async function displayAlbums() {
     console.log("displaying albums")
-    let a = await fetch(`/spotify_clone/songs/`)
+    let a = await fetch(`songs/`)
    
     let response = await a.text();
     let div = document.createElement("div")
@@ -103,7 +103,7 @@ async function displayAlbums() {
     
     for (let index = 0; index < array.length; index++) {
         const e = array[index]; 
-        if (e.href.includes("spotify_clone/songs") && !e.href.includes(".htaccess")) {
+        if (e.href.includes("songs") && !e.href.includes(".htaccess")) {
             let folder = e.href.split("/").slice(-2)[0]
             
             
@@ -120,7 +120,7 @@ async function displayAlbums() {
                 </svg>
             </div>
 
-            <img src="/spotify_clone/songs/${folder}/cover.jpeg" alt="">
+            <img src="songs/${folder}/cover.jpeg" alt="">
             <h2>${response.title}</h2>
             <p>${response.description}</p>
         </div>`
